@@ -24,16 +24,27 @@ function changeDifficulty(index) {
     theDifficulty = index;
 }
 
-function onMouseover(index) {
-    if(index === mapNameList.indexOf(map)){
+function onMouseover(string, index) {
+    if (string === 'map') {
+        if (index === mapNameList.indexOf(map)) {
+            return;
+        }
+        const button = mapButtonList[index];
+        button.style.color = '#00FF00'
         return;
     }
-    const button = mapButtonList[index];
+    if (index === theDifficulty) {
+        return;
+    }
+    const button = difficultyButtonList[index];
     button.style.color = '#00FF00'
-
 }
 
-function onMouseout(index) {
-    const button = mapButtonList[index];
+function onMouseout(string, index) {
+    if (string === 'map') {
+        const button = mapButtonList[index];
+        button.style.color = '#FFFFFF'
+    }
+    const button = difficultyButtonList[index];
     button.style.color = '#FFFFFF'
 }

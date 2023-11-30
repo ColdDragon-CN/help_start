@@ -21,34 +21,83 @@
 
 <body>
     <div id="full">
+        <!-- 标题的容器 -->
         <div class="title">
+
+            <!-- 选择地图的容器 -->
             <div class="choseM">
-                <button class="chose" id="de">Dead End</button>
-                <button class="chose" id='bb'>Bad Blood</button>
-                <button class="chose" id="aa">Alien Arcadium</button>
+                <button class="chose" id="DeadEnd">Dead End</button>
+                <button class="chose" id='BadBlood'>Bad Blood</button>
+                <button class="chose" id="AlienArcadium">Alien Arcadium</button>
             </div>
+
+            <!-- 选择难度的容器 -->
             <div class="choseD" id="difficulty">
                 <button class="chose" id="normal">Normal</button>
-            <button class="chose" id="hard">Hard</button>
-            <button class="chose" id="rip">Rip</button>
+                <button class="chose" id="hard">Hard</button>
+                <button class="chose" id="rip">Rip</button>
             </div>
+
+            <!-- 玩家输入框的容器 -->
             <div class="player_div">
                 <input class="player" type="text" id="player1"
                     placeholder="player 1  --- you can use space input all player on 1 line">
                 <input class="player" type="text" id="player2" placeholder="player 2">
                 <input class="player" type="text" id="player3" placeholder="player 3">
             </div>
+
+        </div> <!--Title-->
+        <div class="chest" id="de_chest">
+            <button class="chose">Office</button>
+            <button class="chose">Hotel</button>
+            <button class="chose">Apartments</button>
+            <button class="chose">Power Station</button>
+            <button class="chose">Gallery</button>
         </div>
-    </div>
+        <div class="chest" id="bb_chest">
+            <button class="chose">Mansion</button>
+            <button class="chose">Library</button>
+            <button class="chose">Dungeon</button>
+            <button class="chose">Balcony</button>
+            <button class="chose">Crypts</button>
+        </div>
+        <div class="chest" id="aa_chest">
+            <button class="chose">Roller Coaster</button>
+        </div>
+    </div> <!--Full-->
     <script>
+
         let map = 'aa';
         let theDifficulty = 0;
 
         const difficulty = document.getElementById('difficulty');
 
+        const DeadEnd = document.getElementById('DeadEnd');
+        const BadBlood = document.getElementById('BadBlood');
+        const AlienArcadium = document.getElementById('AlienArcadium');
+
+        AlienArcadium.style.backgroundColor = '#00FFFF80';
+
+        const mapButtonList = [DeadEnd, BadBlood, AlienArcadium];
+        const mapNameList = ['de', 'bb', 'aa'];
+
+        DeadEnd.addEventListener('mouseover', () => { onMouseover('map', 0) });
+        BadBlood.addEventListener('mouseover', () => { onMouseover('map', 1) });
+        AlienArcadium.addEventListener('mouseover', () => { onMouseover('map', 2) });
+
+        DeadEnd.addEventListener('mouseout', () => { onMouseout('map', 0) })
+        BadBlood.addEventListener('mouseout', () => { onMouseout('map', 1) })
+        AlienArcadium.addEventListener('mouseout', () => { onMouseout('map', 2) })
+
+        DeadEnd.onclick = () => { changeMap('de', 0) };
+        BadBlood.onclick = () => { changeMap('bb', 1) };
+        AlienArcadium.onclick = () => { changeMap('aa', 2) };
+
         const normal = document.getElementById('normal');
         const hard = document.getElementById('hard');
         const rip = document.getElementById('rip');
+
+        normal.style.backgroundColor = '#00FFFF80';
 
         const difficultyList = ['normal', 'hard', 'rip'];
         const difficultyButtonList = [normal, hard, rip];
@@ -57,24 +106,13 @@
         hard.onclick = () => { changeDifficulty(1) };
         rip.onclick = () => { changeDifficulty(2) };
 
-        const de = document.getElementById('de');
-        const bb = document.getElementById('bb');
-        const aa = document.getElementById('aa');
+        normal.addEventListener('mouseover', () => { onMouseover('difficulty', 0) })
+        hard.addEventListener('mouseover', () => { onMouseover('difficulty', 1) })
+        rip.addEventListener('mouseover', () => { onMouseover('difficulty', 2) })
 
-        const mapButtonList = [de, bb, aa];
-        const mapNameList = ['de', 'bb', 'aa'];
-
-        de.addEventListener('mouseover', () => { onMouseover(0) });
-        bb.addEventListener('mouseover', () => { onMouseover(1) });
-        aa.addEventListener('mouseover', () => { onMouseover(2) });
-
-        de.addEventListener('mouseout', () => { onMouseout(0) })
-        bb.addEventListener('mouseout', () => { onMouseout(1) })
-        aa.addEventListener('mouseout', () => { onMouseout(2) })
-
-        de.onclick = () => { changeMap('de', 0) };
-        bb.onclick = () => { changeMap('bb', 1) };
-        aa.onclick = () => { changeMap('aa', 2) };
+        normal.addEventListener('mouseout', () => { onMouseout('difficulty', 0) })
+        hard.addEventListener('mouseout', () => { onMouseout('difficulty', 1) })
+        rip.addEventListener('mouseout', () => { onMouseout('difficulty', 2) })
 
     </script>
 </body>

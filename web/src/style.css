@@ -51,3 +51,7 @@ html,body {
     flex-direction: column;
     width: 140px;
 }
+
+.chest{
+    display: none;
+}
