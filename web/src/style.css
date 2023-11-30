@@ -1,0 +1,53 @@
+/* 设置页面填充100% */
+html,body {
+    height: 100%;
+    margin: 0;
+}
+
+#full{
+
+    /* 背景 */
+    background-color: rgb(42, 39, 39);
+
+    /* 容器高度 */
+    height: var(--windowHeight);
+}
+
+.title{
+    display: flex;
+    flex-direction: row;
+}
+
+.choseM{
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+}
+
+.chose{
+    margin: 10px;
+    color: white;
+    border: 0px;
+    background-color: rgba(245, 222, 179, 0);
+}
+
+.player_div{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    margin-right: 10px;
+    right: 0;
+}
+
+.player{
+    margin: 6px;
+    width: 410px;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.choseD{
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+}

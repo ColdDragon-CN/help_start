@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Help Start</title>
+    <script>
+        // 获取浏览器的长度
+        const x = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth);
+
+        // 获取浏览器的宽度
+        const y = (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
+
+        // 对CSS公开变量
+        document.documentElement.style.setProperty('--windowWidth', x + 'px');
+        document.documentElement.style.setProperty('--windowHeight', y + 'px');
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <script src="./index.js"></script>
+</head>
+
+<body>
+    <div id="full">
+        <div class="title">
+            <div class="choseM">
+                <button class="chose" id="de">Dead End</button>
+                <button class="chose" id='bb'>Bad Blood</button>
+                <button class="chose" id="aa">Alien Arcadium</button>
+            </div>
+            <div class="choseD" id="difficulty">
+                <button class="chose" id="normal">Normal</button>
+            <button class="chose" id="hard">Hard</button>
+            <button class="chose" id="rip">Rip</button>
+            </div>
+            <div class="player_div">
+                <input class="player" type="text" id="player1"
+                    placeholder="player 1  --- you can use space input all player on 1 line">
+                <input class="player" type="text" id="player2" placeholder="player 2">
+                <input class="player" type="text" id="player3" placeholder="player 3">
+            </div>
+        </div>
+    </div>
+    <script>
+        let map = 'aa';
+        let theDifficulty = 0;
+
+        const difficulty = document.getElementById('difficulty');
+
+        const normal = document.getElementById('normal');
+        const hard = document.getElementById('hard');
+        const rip = document.getElementById('rip');
+
+        const difficultyList = ['normal', 'hard', 'rip'];
+        const difficultyButtonList = [normal, hard, rip];
+
+        normal.onclick = () => { changeDifficulty(0) };
+        hard.onclick = () => { changeDifficulty(1) };
+        rip.onclick = () => { changeDifficulty(2) };
+
+        const de = document.getElementById('de');
+        const bb = document.getElementById('bb');
+        const aa = document.getElementById('aa');
+
+        const mapButtonList = [de, bb, aa];
+        const mapNameList = ['de', 'bb', 'aa'];
+
+        de.addEventListener('mouseover', () => { onMouseover(0) });
+        bb.addEventListener('mouseover', () => { onMouseover(1) });
+        aa.addEventListener('mouseover', () => { onMouseover(2) });
+
+        de.addEventListener('mouseout', () => { onMouseout(0) })
+        bb.addEventListener('mouseout', () => { onMouseout(1) })
+        aa.addEventListener('mouseout', () => { onMouseout(2) })
+
+        de.onclick = () => { changeMap('de', 0) };
+        bb.onclick = () => { changeMap('bb', 1) };
+        aa.onclick = () => { changeMap('aa', 2) };
+
+    </script>
+</body>
+
+</html>
