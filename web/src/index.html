@@ -25,14 +25,14 @@
         <div class="title">
 
             <!-- 选择地图的容器 -->
-            <div class="choseM">
+            <div class="subTitle    ">
                 <button class="chose" id="DeadEnd">Dead End</button>
                 <button class="chose" id='BadBlood'>Bad Blood</button>
                 <button class="chose" id="AlienArcadium">Alien Arcadium</button>
             </div>
 
             <!-- 选择难度的容器 -->
-            <div class="choseD" id="difficulty">
+            <div class="subTitle" id="difficulty">
                 <button class="chose" id="normal">Normal</button>
                 <button class="chose" id="hard">Hard</button>
                 <button class="chose" id="rip">Rip</button>
@@ -47,26 +47,94 @@
             </div>
 
         </div> <!--Title-->
+        <h3 class="whiteText">voluntary choose spawn chest ↓</h3>
         <div class="chest" id="de_chest">
-            <button class="chose">Office</button>
-            <button class="chose">Hotel</button>
-            <button class="chose">Apartments</button>
-            <button class="chose">Power Station</button>
-            <button class="chose">Gallery</button>
+            <button class="chose" id="office">Office</button>
+            <button class="chose" id="hotel">Hotel</button>
+            <button class="chose" id="apartments">Apartments</button>
+            <button class="chose" id="power_station">Power Station</button>
+            <button class="chose" id="gallery">Gallery</button>
         </div>
         <div class="chest" id="bb_chest">
-            <button class="chose">Mansion</button>
-            <button class="chose">Library</button>
-            <button class="chose">Dungeon</button>
-            <button class="chose">Balcony</button>
-            <button class="chose">Crypts</button>
+            <button class="chose" id="mansion">Mansion</button>
+            <button class="chose" id="library">Library</button>
+            <button class="chose" id="dungeon">Dungeon</button>
+            <button class="chose" id="balcony">Balcony</button>
+            <button class="chose" id="crypts">Crypts</button>
         </div>
         <div class="chest" id="aa_chest">
-            <button class="chose">Roller Coaster</button>
+            <button class="choseRC">Roller Coaster</button>
+        </div> <!--chest-->
+        <div class="title">
+            <div class="bot_info">
+                <h3 class="bot_line">bot#1 offline</h3>
+                <h3 class="bot_line"></h3>
+                <h3 class="bot_line">bot#2 offline</h3>
+                <h3 class="bot_line"></h3>
+                <h3 class="bot_line">bot#3 offline</h3>
+                <h3 class="bot_line"></h3>
+            </div>
+            <div class="subTitle">
+            </div>
         </div>
     </div> <!--Full-->
     <script>
 
+        let de_chest = null;
+        const office = document.getElementById('office');
+        const hotel = document.getElementById('hotel');
+        const apartments = document.getElementById('apartments');
+        const powerStation = document.getElementById('power_station');
+        const gallery = document.getElementById('gallery');
+        const deChestButton = [office, hotel, apartments, powerStation, gallery];
+        const deChest = ['office', 'hotel', 'apartments', 'powerStation', 'gallery'];
+
+        office.onclick = () => { changeChestFD('office', 0) }
+        hotel.onclick = () => { changeChestFD('hotel', 1) }
+        apartments.onclick = () => { changeChestFD('apartments', 2) }
+        powerStation.onclick = () => { changeChestFD('powerStation', 3) }
+        gallery.onclick = () => { changeChestFD('gallery', 4) }
+
+        office.addEventListener('mouseover', () => { chestMouseoverFD(0) })
+        hotel.addEventListener('mouseover', () => { chestMouseoverFD(1) })
+        apartments.addEventListener('mouseover', () => { chestMouseoverFD(2) })
+        powerStation.addEventListener('mouseover', () => { chestMouseoverFD(3) })
+        gallery.addEventListener('mouseover', () => { chestMouseoverFD(4) })
+
+        office.addEventListener('mouseout', () => { chestMouseoutFD(0) })
+        hotel.addEventListener('mouseout', () => { chestMouseoutFD(1) })
+        apartments.addEventListener('mouseout', () => { chestMouseoutFD(2) })
+        powerStation.addEventListener('mouseout', () => { chestMouseoutFD(3) })
+        gallery.addEventListener('mouseout', () => { chestMouseoutFD(4) })
+
+        let bb_chest = null;
+        const mansion = document.getElementById('mansion');
+        const library = document.getElementById('library');
+        const dungeon = document.getElementById('dungeon');
+        const balcony = document.getElementById('balcony');
+        const crypts = document.getElementById('crypts');
+        const bbChestButton = [mansion, library, dungeon, balcony, crypts];
+        const bbChest = ['mansion', 'library', 'dungeon', 'balcony', 'crypts'];
+
+        mansion.onclick = () => { changeChestFB('mansion', 0) }
+        library.onclick = () => { changeChestFB('library', 1) }
+        dungeon.onclick = () => { changeChestFB('dungeon', 2) }
+        balcony.onclick = () => { changeChestFB('balcony', 3) }
+        crypts.onclick = () => { changeChestFB('crypts', 4) }
+
+        mansion.addEventListener('mouseover',()=>{chestMouseoverFB(0)})
+        library.addEventListener('mouseover',()=>{chestMouseoverFB(1)})
+        dungeon.addEventListener('mouseover',()=>{chestMouseoverFB(2)})
+        balcony.addEventListener('mouseover',()=>{chestMouseoverFB(3)})
+        crypts.addEventListener('mouseover',()=>{chestMouseoverFB(4)})
+
+        mansion.addEventListener('mouseout',()=>{chestMouseoutFB(0)})
+        library.addEventListener('mouseout',()=>{chestMouseoutFB(1)})
+        dungeon.addEventListener('mouseout',()=>{chestMouseoutFB(2)})
+        balcony.addEventListener('mouseout',()=>{chestMouseoutFB(3)})
+        crypts.addEventListener('mouseout',()=>{chestMouseoutFB(4)})
+        
+        // #### ↓ #### 地图选择按钮组 #### ↓ #### 
         let map = 'aa';
         let theDifficulty = 0;
 
@@ -92,7 +160,9 @@
         DeadEnd.onclick = () => { changeMap('de', 0) };
         BadBlood.onclick = () => { changeMap('bb', 1) };
         AlienArcadium.onclick = () => { changeMap('aa', 2) };
+        // #### ↑ #### 地图选择按钮组 #### ↑ #### 
 
+        // #### ↓ #### 难度选择按钮组 #### ↓ #### 
         const normal = document.getElementById('normal');
         const hard = document.getElementById('hard');
         const rip = document.getElementById('rip');
@@ -113,6 +183,7 @@
         normal.addEventListener('mouseout', () => { onMouseout('difficulty', 0) })
         hard.addEventListener('mouseout', () => { onMouseout('difficulty', 1) })
         rip.addEventListener('mouseout', () => { onMouseout('difficulty', 2) })
+        // #### ↑ #### 难度选择按钮组 #### ↑ #### 
 
     </script>
 </body>

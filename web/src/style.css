@@ -18,10 +18,10 @@ html,body {
     flex-direction: row;
 }
 
-.choseM{
+.subTitle{
     display: flex;
     flex-direction: column;
-    width: 140px;
+    width: 130px;
 }
 
 .chose{
@@ -46,12 +46,30 @@ html,body {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-.choseD{
-    display: flex;
-    flex-direction: column;
-    width: 140px;
+.choseRC{
+    margin: 10px;
+    color: white;
+    border: 0px;
+    background-color: #00FFFF80
 }
 
-.chest{
-    display: none;
+.whiteText{
+    color: white;
+    margin-left: 2px;
+}
+
+.player_line{
+    color: white;
+    margin: 0;
+}
+
+.bot_info{
+    display: flex;
+    flex-direction: column;
+    width: 270px;
+}
+
+.bot_line{
+    color: white;
+    margin: 5px;
 }
