@@ -1,6 +1,5 @@
 const path = require('path');
 const express = require('express');
-const fs = require('fs');
 const cors = require('cors');
 const moment = require('moment');
 const { log } = require('console');
@@ -9,8 +8,12 @@ const server = express();
 
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
+server.use(cors());
 
 server.use(express.static(path.join(__dirname,'../web/src')))
+
+const route = require(path.join(__dirname,'./route'))
+server.use(route)
 
 server.listen(301,function(){
     log(`${getTime()}服务器启动成功`);

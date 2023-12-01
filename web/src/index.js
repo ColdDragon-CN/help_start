@@ -120,3 +120,24 @@ function onMouseout(string, index) {
     const button = difficultyButtonList[index];
     button.style.color = '#FFFFFF'
 }
+
+const url = 'http://127.0.0.1:301/'
+const application = 'application/json';
+const Content_Type = 'Content-Type'
+function sendHelpStart(data,callback){
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST',`${url}helpStart`);
+    xhr.setRequestHeader(Content_Type,application);
+    xhr.send(JSON.stringify(data));
+    xhr.onreadystatechange = function(){
+        const status = xhr.status;
+        const readyState = xhr.readyState;
+        if(readyState === 4){
+            if(status > 199 && status < 300){
+                const response = xhr.response;
+                return callback(response);
+            }
+            return callback('connect error' + status);
+        }
+    }
+}

@@ -77,11 +77,11 @@
         </div> <!--chest-->
         <div class="title">
             <div class="bot_info">
-                <h3 class="bot_line">bot#1 offline</h3>
+                <h3 class="bot_line">bot#1</h3>
                 <h3 class="bot_line"></h3>
-                <h3 class="bot_line">bot#2 offline</h3>
+                <h3 class="bot_line">bot#2</h3>
                 <h3 class="bot_line"></h3>
-                <h3 class="bot_line">bot#3 offline</h3>
+                <h3 class="bot_line">bot#3</h3>
                 <h3 class="bot_line"></h3>
             </div>
             <div class="subTitle">
@@ -89,6 +89,8 @@
         </div>
     </div> <!--Full-->
     <script>
+
+        
 
         const send = document.getElementById('send');
 
@@ -100,12 +102,16 @@
 
             const this_chest = map === 'de' ? de_chest : map === 'bb' ? bb_chest : 'rc';
 
-            const date = {
+            const data = {
                 map : map,
                 difficulty : theDifficulty,
                 players : [player1,player2,player3],
                 chest : this_chest,
             }
+
+            sendHelpStart(data,function(result){
+                alert(result)
+            })
 
         }
 
