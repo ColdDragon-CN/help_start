@@ -38,6 +38,12 @@
                 <button class="chose" id="rip">Rip</button>
             </div>
 
+            <!-- 网络请求的容器 -->
+            <div class="subTitle">
+                <button class="network_button" id='send'>Send</button>
+                <button class="network_button" id="update">Update info</button>
+            </div>
+
             <!-- 玩家输入框的容器 -->
             <div class="player_div">
                 <input class="player" type="text" id="player1"
@@ -48,6 +54,8 @@
 
         </div> <!--Title-->
         <h3 class="whiteText">voluntary choose spawn chest ↓</h3>
+
+        <!-- DeadEnd箱子选择 -->
         <div class="chest" id="de_chest">
             <button class="chose" id="office">Office</button>
             <button class="chose" id="hotel">Hotel</button>
@@ -55,6 +63,8 @@
             <button class="chose" id="power_station">Power Station</button>
             <button class="chose" id="gallery">Gallery</button>
         </div>
+
+        <!-- BadBlood箱子选择 -->
         <div class="chest" id="bb_chest">
             <button class="chose" id="mansion">Mansion</button>
             <button class="chose" id="library">Library</button>
@@ -79,6 +89,28 @@
         </div>
     </div> <!--Full-->
     <script>
+
+        const send = document.getElementById('send');
+
+        send.onclick = function(){
+
+            const player1 = document.getElementById('player1').value;
+            const player2 = document.getElementById('player2').value;
+            const player3 = document.getElementById('player3').value;
+
+            const this_chest = map === 'de' ? de_chest : map === 'bb' ? bb_chest : 'rc';
+
+            const date = {
+                map : map,
+                difficulty : theDifficulty,
+                players : [player1,player2,player3],
+                chest : this_chest,
+            }
+
+        }
+
+        const update = document.getElementById('update');
+        update.onclick = ()=>{updateInfo()}
 
         let de_chest = null;
         const office = document.getElementById('office');
@@ -133,7 +165,7 @@
         dungeon.addEventListener('mouseout',()=>{chestMouseoutFB(2)})
         balcony.addEventListener('mouseout',()=>{chestMouseoutFB(3)})
         crypts.addEventListener('mouseout',()=>{chestMouseoutFB(4)})
-        
+
         // #### ↓ #### 地图选择按钮组 #### ↓ #### 
         let map = 'aa';
         let theDifficulty = 0;

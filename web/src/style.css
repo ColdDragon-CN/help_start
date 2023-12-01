@@ -73,3 +73,19 @@ html,body {
     color: white;
     margin: 5px;
 }
+
+.network_button{
+    background-color: #00FFFF00;
+    border: 0px;
+    color: #FFFFFF;
+    margin-top: 25px;
+}
+
+.network_button:hover{
+    color: rgb(0,255,0);
+}
+
+.network_button:active{
+    color: white;
+    background-color: #00FFFF80;
+}
