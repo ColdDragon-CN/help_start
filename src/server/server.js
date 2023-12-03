@@ -10,7 +10,7 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(cors());
 
-server.use(express.static(path.join(__dirname, '../web/src')))
+server.use(express.static(path.join(__dirname, '../web')))
 
 const route = require(path.join(__dirname, './route'))
 server.use(route)
