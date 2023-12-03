@@ -64,6 +64,11 @@ function changeChestFB(string, index) {
     bb_chest = string;
 }
 
+/**
+ * @function chestMouseoverFD 在鼠标悬停坏血箱子选项时
+ * @param {integer} index 索引
+ * @returns {void}
+ */
 function chestMouseoverFD(index) {
     if (de_chest === deChest[index]) {
         return;
@@ -72,6 +77,11 @@ function chestMouseoverFD(index) {
     button.style.color = '#00FF00'
 }
 
+/**
+ * @function chestMouseoutFD 在鼠标离开潜艇箱子选项时
+ * @param {integer} index 索引
+ * @returns {void}
+ */
 function chestMouseoutFD(index) {
     if (de_chest === deChest[index]) {
         return;
@@ -80,6 +90,11 @@ function chestMouseoutFD(index) {
     button.style.color = '#FFFFFF'
 }
 
+/**
+ * @function chestMouseoverFB 在鼠标悬停坏血箱子选项时
+ * @param {integer} index 索引
+ * @returns {void}
+ */
 function chestMouseoverFB(index) {
     if (bb_chest === bbChest[index]) {
         return;
@@ -88,6 +103,11 @@ function chestMouseoverFB(index) {
     button.style.color = '#00FF00'
 }
 
+/**
+ * @function chestMouseoutFB 在鼠标离开坏血箱子选项时
+ * @param {integer} index 索引
+ * @returns {void}
+ */
 function chestMouseoutFB(index) {
     if (bb_chest === bbChest[index]) {
         return;
@@ -96,6 +116,12 @@ function chestMouseoutFB(index) {
     button.style.color = '#FFFFFF'
 }
 
+/**
+ * @function onMouseover 在鼠标悬停时
+ * @param {string} string 字符串
+ * @param {integer} index 索引
+ * @returns {void}
+ */
 function onMouseover(string, index) {
     if (string === 'map') {
         if (index === mapNameList.indexOf(map)) {
@@ -112,6 +138,11 @@ function onMouseover(string, index) {
     button.style.color = '#00FF00'
 }
 
+/**
+ * @function onMouseout 在鼠标离开时
+ * @param {string} string 字符串 
+ * @param {integer} index 索引
+ */
 function onMouseout(string, index) {
     if (string === 'map') {
         const button = mapButtonList[index];
@@ -121,10 +152,17 @@ function onMouseout(string, index) {
     button.style.color = '#FFFFFF'
 }
 
+/**@type {string} 这是请求的主url*/
 const url = 'http://127.0.0.1:301/'
-const application = 'application/json';
-const Content_Type = 'Content-Type'
+/**
+ * @function sendHelpStart 发送帮开请求
+ * @param {object} data 数据
+ * @param {Function} callback 回调函数
+ */
 function sendHelpStart(data, callback) {
+    const application = 'application/json';
+    const Content_Type = 'Content-Type'
+
     const xhr = new XMLHttpRequest();
     xhr.open('POST', `${url}helpStart`);
     xhr.setRequestHeader(Content_Type, application);
@@ -142,6 +180,10 @@ function sendHelpStart(data, callback) {
     }
 }
 
+/**
+ * @function getBotInfo 请求BotInfo
+ * @param {Function} callback 回调函数
+ */
 function getBotInfo(callback) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', `${url}getInfo`)
@@ -158,23 +200,39 @@ function getBotInfo(callback) {
     }
 }
 
-function spawnInfo() {
+/**
+ * @function spawnInfo 生成bot详细信息
+ * @param {Array<HTMLElement>} botElementList 
+ * @param {HTMLElement} infoElement 
+ */
+function spawnInfo(botElementList, infoElement) {
     getBotInfo(function (result) {
+
         const bots = result.bot;
-        const bot1 = bots.bot1;
-        const bot2 = bots.bot2;
-        const bot3 = bots.bot3;
-        bot1Element.innerText = `bot#1 ${bot1.name} ${bot1.online ? 'online' : 'offline'}`;
-        bot2Element.innerText = `bot#2 ${bot2.name} ${bot2.online ? 'online' : 'offline'}`;
-        bot3Element.innerText = `bot#3 ${bot3.name} ${bot3.online ? 'online' : 'offline'}`;
+
+        let count = 0;
+        for (var ket in bots) {
+            const bot = bots[ket];
+            /**@type {string} bot的状态*/
+            const status = bot.online ? 'online' : 'offline';
+            botElementList[count].innerHTML = `bot#${count - 0 + 1} ${bot.name} ${status}`;
+            count ++;
+        }
+        // const bot1 = bots.bot1;
+        // const bot2 = bots.bot2;
+        // const bot3 = bots.bot3;
+        // bot1Element.innerText = `bot#1 ${bot1.name} ${bot1.online ? 'online' : 'offline'}`;
+        // bot2Element.innerText = `bot#2 ${bot2.name} ${bot2.online ? 'online' : 'offline'}`;
+        // bot3Element.innerText = `bot#3 ${bot3.name} ${bot3.online ? 'online' : 'offline'}`;
 
         let info = result.line;
         let textList = '';
-        const isMore = info.length > 5;
-        for (var i = 0; i < info.length; i++) {
+        const length = info.length
+        const isMore = length > 5;
+        for (var i = 0; i < length; i++) {
             const message = info[i];
             if (i == 4 && isMore) {
-                textList = `${textList}<p class='player_line'>${info.length - 4} more message</p>`
+                textList = `${textList}<p class='player_line'>${length - 4} more message</p>`
                 break
             }
             textList = `${textList}<p class='player_line'>${message}</p>`;

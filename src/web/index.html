@@ -125,10 +125,11 @@
         const bot2Element = document.getElementById('bot2');
         const bot3Element = document.getElementById('bot3');
         const infoElement = document.getElementById('info');
-        spawnInfo();
+        const botElementList = [bot1Element,bot2Element,bot3Element];
+        spawnInfo(botElementList,infoElement);
 
         const update = document.getElementById('update');
-        update.onclick = () => { spawnInfo() }
+        update.onclick = () => { spawnInfo(botElementList,infoElement) }
         // #### ↑ #### 请求更新内容 #### ↑ #### 
 
         // #### ↓ #### 穷途箱子选择按钮组 #### ↓ #### 
