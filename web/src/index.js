@@ -25,7 +25,7 @@ function changeDifficulty(index) {
 }
 
 function changeChestFD(string, index) {
-    if(deChest.indexOf(de_chest) === index){
+    if (deChest.indexOf(de_chest) === index) {
         de_chest = null;
         const button = deChestButton[index];
         button.style.backgroundColor = '#00FFFF00';
@@ -45,7 +45,7 @@ function changeChestFD(string, index) {
 }
 
 function changeChestFB(string, index) {
-    if(bbChest.indexOf(bb_chest) === index){
+    if (bbChest.indexOf(bb_chest) === index) {
         bb_chest = null;
         const button = bbChestButton[index];
         button.style.backgroundColor = '#00FFFF00';
@@ -65,7 +65,7 @@ function changeChestFB(string, index) {
 }
 
 function chestMouseoverFD(index) {
-    if(de_chest === deChest[index]){
+    if (de_chest === deChest[index]) {
         return;
     }
     const button = deChestButton[index];
@@ -73,7 +73,7 @@ function chestMouseoverFD(index) {
 }
 
 function chestMouseoutFD(index) {
-    if(de_chest === deChest[index]){
+    if (de_chest === deChest[index]) {
         return;
     }
     const button = deChestButton[index];
@@ -81,7 +81,7 @@ function chestMouseoutFD(index) {
 }
 
 function chestMouseoverFB(index) {
-    if(bb_chest === bbChest[index]){
+    if (bb_chest === bbChest[index]) {
         return;
     }
     const button = bbChestButton[index];
@@ -89,7 +89,7 @@ function chestMouseoverFB(index) {
 }
 
 function chestMouseoutFB(index) {
-    if(bb_chest === bbChest[index]){
+    if (bb_chest === bbChest[index]) {
         return;
     }
     const button = bbChestButton[index];
@@ -124,20 +124,61 @@ function onMouseout(string, index) {
 const url = 'http://127.0.0.1:301/'
 const application = 'application/json';
 const Content_Type = 'Content-Type'
-function sendHelpStart(data,callback){
+function sendHelpStart(data, callback) {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST',`${url}helpStart`);
-    xhr.setRequestHeader(Content_Type,application);
+    xhr.open('POST', `${url}helpStart`);
+    xhr.setRequestHeader(Content_Type, application);
     xhr.send(JSON.stringify(data));
-    xhr.onreadystatechange = function(){
+    xhr.onreadystatechange = function () {
         const status = xhr.status;
         const readyState = xhr.readyState;
-        if(readyState === 4){
-            if(status > 199 && status < 300){
+        if (readyState === 4) {
+            if (status > 199 && status < 300) {
                 const response = xhr.response;
                 return callback(response);
             }
             return callback('connect error' + status);
         }
     }
+}
+
+function getBotInfo(callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `${url}getInfo`)
+    xhr.send();
+    xhr.onreadystatechange = function () {
+        const status = xhr.status;
+        const readyState = xhr.readyState;
+        if (readyState === 4) {
+            if (status > 199 && status < 300) {
+                return callback(JSON.parse(xhr.response));
+            }
+            return callback(`connect error ${status}`)
+        }
+    }
+}
+
+function spawnInfo() {
+    getBotInfo(function (result) {
+        const bots = result.bot;
+        const bot1 = bots.bot1;
+        const bot2 = bots.bot2;
+        const bot3 = bots.bot3;
+        bot1Element.innerText = `bot#1 ${bot1.name} ${bot1.online ? 'online' : 'offline'}`;
+        bot2Element.innerText = `bot#2 ${bot2.name} ${bot2.online ? 'online' : 'offline'}`;
+        bot3Element.innerText = `bot#3 ${bot3.name} ${bot3.online ? 'online' : 'offline'}`;
+
+        let info = result.line;
+        let textList = '';
+        const isMore = info.length > 5;
+        for (var i = 0; i < info.length; i++) {
+            const message = info[i];
+            if (i == 4 && isMore) {
+                textList = `${textList}<p class='player_line'>${info.length - 4} more message</p>`
+                break
+            }
+            textList = `${textList}<p class='player_line'>${message}</p>`;
+        }
+        infoElement.innerHTML = textList
+    })
 }

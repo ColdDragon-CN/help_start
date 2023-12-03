@@ -77,24 +77,21 @@
         </div> <!--chest-->
         <div class="title">
             <div class="bot_info">
-                <h3 class="bot_line">bot#1</h3>
-                <h3 class="bot_line"></h3>
-                <h3 class="bot_line">bot#2</h3>
-                <h3 class="bot_line"></h3>
-                <h3 class="bot_line">bot#3</h3>
-                <h3 class="bot_line"></h3>
+                <h3 class="bot_line" id="bot1">bot#1</h3>
+                <!-- <h3 class="bot_line"></h3> -->
+                <h3 class="bot_line" id="bot2">bot#2</h3>
+                <!-- <h3 class="bot_line"></h3> -->
+                <h3 class="bot_line" id='bot3'>bot#3</h3>
+                <!-- <h3 class="bot_line"></h3> -->
             </div>
-            <div class="subTitle">
+            <div class="subTitle" id="info">
             </div>
         </div>
     </div> <!--Full-->
     <script>
 
-        
-
         const send = document.getElementById('send');
-
-        send.onclick = function(){
+        send.onclick = function () {
 
             const player1 = document.getElementById('player1').value;
             const player2 = document.getElementById('player2').value;
@@ -103,20 +100,26 @@
             const this_chest = map === 'de' ? de_chest : map === 'bb' ? bb_chest : 'rc';
 
             const data = {
-                map : map,
-                difficulty : theDifficulty,
-                players : [player1,player2,player3],
-                chest : this_chest,
+                map: map,
+                difficulty: theDifficulty,
+                players: [player1, player2, player3],
+                chest: this_chest,
             }
 
-            sendHelpStart(data,function(result){
+            sendHelpStart(data, function (result) {
                 alert(result)
             })
 
         }
 
+        const bot1Element = document.getElementById('bot1');
+        const bot2Element = document.getElementById('bot2');
+        const bot3Element = document.getElementById('bot3');
+        const infoElement = document.getElementById('info');
+        spawnInfo();
+
         const update = document.getElementById('update');
-        update.onclick = ()=>{updateInfo()}
+        update.onclick = () => { spawnInfo() }
 
         let de_chest = null;
         const office = document.getElementById('office');
@@ -160,17 +163,17 @@
         balcony.onclick = () => { changeChestFB('balcony', 3) }
         crypts.onclick = () => { changeChestFB('crypts', 4) }
 
-        mansion.addEventListener('mouseover',()=>{chestMouseoverFB(0)})
-        library.addEventListener('mouseover',()=>{chestMouseoverFB(1)})
-        dungeon.addEventListener('mouseover',()=>{chestMouseoverFB(2)})
-        balcony.addEventListener('mouseover',()=>{chestMouseoverFB(3)})
-        crypts.addEventListener('mouseover',()=>{chestMouseoverFB(4)})
+        mansion.addEventListener('mouseover', () => { chestMouseoverFB(0) })
+        library.addEventListener('mouseover', () => { chestMouseoverFB(1) })
+        dungeon.addEventListener('mouseover', () => { chestMouseoverFB(2) })
+        balcony.addEventListener('mouseover', () => { chestMouseoverFB(3) })
+        crypts.addEventListener('mouseover', () => { chestMouseoverFB(4) })
 
-        mansion.addEventListener('mouseout',()=>{chestMouseoutFB(0)})
-        library.addEventListener('mouseout',()=>{chestMouseoutFB(1)})
-        dungeon.addEventListener('mouseout',()=>{chestMouseoutFB(2)})
-        balcony.addEventListener('mouseout',()=>{chestMouseoutFB(3)})
-        crypts.addEventListener('mouseout',()=>{chestMouseoutFB(4)})
+        mansion.addEventListener('mouseout', () => { chestMouseoutFB(0) })
+        library.addEventListener('mouseout', () => { chestMouseoutFB(1) })
+        dungeon.addEventListener('mouseout', () => { chestMouseoutFB(2) })
+        balcony.addEventListener('mouseout', () => { chestMouseoutFB(3) })
+        crypts.addEventListener('mouseout', () => { chestMouseoutFB(4) })
 
         // #### ↓ #### 地图选择按钮组 #### ↓ #### 
         let map = 'aa';

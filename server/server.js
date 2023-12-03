@@ -10,16 +10,16 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(cors());
 
-server.use(express.static(path.join(__dirname,'../web/src')))
+server.use(express.static(path.join(__dirname, '../web/src')))
 
-const route = require(path.join(__dirname,'./route'))
+const route = require(path.join(__dirname, './route'))
 server.use(route)
 
-server.listen(301,function(){
+server.listen(301, function () {
     log(`${getTime()}服务器启动成功`);
 })
 
-function getTime(){
+function getTime() {
     const time = moment().format('HH:mm:ss');
     return `[${time}]`
 }

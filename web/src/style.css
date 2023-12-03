@@ -1,10 +1,11 @@
 /* 设置页面填充100% */
-html,body {
+html,
+body {
     height: 100%;
     margin: 0;
 }
 
-#full{
+#full {
 
     /* 背景 */
     background-color: rgb(42, 39, 39);
@@ -13,25 +14,25 @@ html,body {
     height: var(--windowHeight);
 }
 
-.title{
+.title {
     display: flex;
     flex-direction: row;
 }
 
-.subTitle{
+.subTitle {
     display: flex;
     flex-direction: column;
     width: 130px;
 }
 
-.chose{
+.chose {
     margin: 10px;
     color: white;
     border: 0px;
     background-color: rgba(245, 222, 179, 0);
 }
 
-.player_div{
+.player_div {
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -39,53 +40,53 @@ html,body {
     right: 0;
 }
 
-.player{
+.player {
     margin: 6px;
     width: 410px;
     color: white;
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-.choseRC{
+.choseRC {
     margin: 10px;
     color: white;
     border: 0px;
     background-color: #00FFFF80
 }
 
-.whiteText{
+.whiteText {
     color: white;
     margin-left: 2px;
 }
 
-.player_line{
+.player_line {
     color: white;
     margin: 0;
 }
 
-.bot_info{
+.bot_info {
     display: flex;
     flex-direction: column;
     width: 270px;
 }
 
-.bot_line{
+.bot_line {
     color: white;
     margin: 5px;
 }
 
-.network_button{
+.network_button {
     background-color: #00FFFF00;
     border: 0px;
     color: #FFFFFF;
     margin-top: 25px;
 }
 
-.network_button:hover{
-    color: rgb(0,255,0);
+.network_button:hover {
+    color: rgb(0, 255, 0);
 }
 
-.network_button:active{
+.network_button:active {
     color: white;
     background-color: #00FFFF80;
 }
