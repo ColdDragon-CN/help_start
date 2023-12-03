@@ -19,6 +19,10 @@ server.listen(301, function () {
     log(`${getTime()}服务器启动成功`);
 })
 
+/**
+ * @function getTime 获取时间
+ * @returns {string} 时间
+ */
 function getTime() {
     const time = moment().format('HH:mm:ss');
     return `[${time}]`
