@@ -133,8 +133,11 @@
         update.onclick = () => { spawnInfo(botElementList, infoElement) }
         // #### ↑ #### 请求更新内容 #### ↑ #### 
 
+        const green = '#00FF00';
+        const white = '#FFFFFF';
         // #### ↓ #### 穷途箱子选择按钮组 #### ↓ #### 
         let de_chest = null;
+
         const office = document.getElementById('office');
         const hotel = document.getElementById('hotel');
         const apartments = document.getElementById('apartments');
@@ -143,23 +146,12 @@
         const deChestButton = [office, hotel, apartments, powerStation, gallery];
         const deChest = ['office', 'hotel', 'apartments', 'powerStation', 'gallery'];
 
-        office.onclick = () => { changeChestFD('office', 0) }
-        hotel.onclick = () => { changeChestFD('hotel', 1) }
-        apartments.onclick = () => { changeChestFD('apartments', 2) }
-        powerStation.onclick = () => { changeChestFD('powerStation', 3) }
-        gallery.onclick = () => { changeChestFD('gallery', 4) }
-
-        office.addEventListener('mouseover', () => { chestMouseoverFD(0) })
-        hotel.addEventListener('mouseover', () => { chestMouseoverFD(1) })
-        apartments.addEventListener('mouseover', () => { chestMouseoverFD(2) })
-        powerStation.addEventListener('mouseover', () => { chestMouseoverFD(3) })
-        gallery.addEventListener('mouseover', () => { chestMouseoverFD(4) })
-
-        office.addEventListener('mouseout', () => { chestMouseoutFD(0) })
-        hotel.addEventListener('mouseout', () => { chestMouseoutFD(1) })
-        apartments.addEventListener('mouseout', () => { chestMouseoutFD(2) })
-        powerStation.addEventListener('mouseout', () => { chestMouseoutFD(3) })
-        gallery.addEventListener('mouseout', () => { chestMouseoutFD(4) })
+        for (let i = 0; i < deChestButton.length; i++) {
+            const button = deChestButton[i];
+            button.onclick = () => { changeChestFD(deChest[i], i) };
+            button.addEventListener('mouseover', () => { chestMouse(deChestButton, de_chest, deChest, i, green) })
+            button.addEventListener('mouseout', () => { chestMouse(deChestButton, de_chest, deChest, i, white) })
+        }
         // #### ↑ #### 穷途箱子选择按钮组 #### ↑ #### 
 
         // #### ↓ #### 坏血箱子选择按钮组 #### ↓ #### 
@@ -172,23 +164,12 @@
         const bbChestButton = [mansion, library, dungeon, balcony, crypts];
         const bbChest = ['mansion', 'library', 'dungeon', 'balcony', 'crypts'];
 
-        mansion.onclick = () => { changeChestFB('mansion', 0) }
-        library.onclick = () => { changeChestFB('library', 1) }
-        dungeon.onclick = () => { changeChestFB('dungeon', 2) }
-        balcony.onclick = () => { changeChestFB('balcony', 3) }
-        crypts.onclick = () => { changeChestFB('crypts', 4) }
-
-        mansion.addEventListener('mouseover', () => { chestMouseoverFB(0) })
-        library.addEventListener('mouseover', () => { chestMouseoverFB(1) })
-        dungeon.addEventListener('mouseover', () => { chestMouseoverFB(2) })
-        balcony.addEventListener('mouseover', () => { chestMouseoverFB(3) })
-        crypts.addEventListener('mouseover', () => { chestMouseoverFB(4) })
-
-        mansion.addEventListener('mouseout', () => { chestMouseoutFB(0) })
-        library.addEventListener('mouseout', () => { chestMouseoutFB(1) })
-        dungeon.addEventListener('mouseout', () => { chestMouseoutFB(2) })
-        balcony.addEventListener('mouseout', () => { chestMouseoutFB(3) })
-        crypts.addEventListener('mouseout', () => { chestMouseoutFB(4) })
+        for (let i = 0; i < bbChestButton.length; i++) {
+            const button = bbChestButton[i];
+            button.onclick = () => { changeChestFB(bbChest[i], i) };
+            button.addEventListener('mouseover', () => { chestMouse(bbChestButton, bb_chest, bbChest, i, green) })
+            button.addEventListener('mouseout', () => { chestMouse(bbChestButton, bb_chest, bbChest, i, white) })
+        }
         // #### ↑ #### 坏血箱子选择按钮组 #### ↑ #### 
 
         // #### ↓ #### 地图选择按钮组 #### ↓ #### 

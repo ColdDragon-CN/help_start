@@ -65,55 +65,20 @@ function changeChestFB(string, index) {
 }
 
 /**
- * @function chestMouseoverFD 在鼠标悬停坏血箱子选项时
- * @param {integer} index 索引
+ * 
+ * @param {Array<HTMLElement>} buttonElementList 
+ * @param {string} choose 
+ * @param {Array<string>} chooseList 
+ * @param {integer} index 
+ * @param {string} mode 
  * @returns {void}
  */
-function chestMouseoverFD(index) {
-    if (de_chest === deChest[index]) {
+function chestMouse(buttonElementList, choose, chooseList, index, color) {
+    if (choose === chooseList[index]) {
         return;
     }
-    const button = deChestButton[index];
-    button.style.color = '#00FF00'
-}
-
-/**
- * @function chestMouseoutFD 在鼠标离开潜艇箱子选项时
- * @param {integer} index 索引
- * @returns {void}
- */
-function chestMouseoutFD(index) {
-    if (de_chest === deChest[index]) {
-        return;
-    }
-    const button = deChestButton[index];
-    button.style.color = '#FFFFFF'
-}
-
-/**
- * @function chestMouseoverFB 在鼠标悬停坏血箱子选项时
- * @param {integer} index 索引
- * @returns {void}
- */
-function chestMouseoverFB(index) {
-    if (bb_chest === bbChest[index]) {
-        return;
-    }
-    const button = bbChestButton[index];
-    button.style.color = '#00FF00'
-}
-
-/**
- * @function chestMouseoutFB 在鼠标离开坏血箱子选项时
- * @param {integer} index 索引
- * @returns {void}
- */
-function chestMouseoutFB(index) {
-    if (bb_chest === bbChest[index]) {
-        return;
-    }
-    const button = bbChestButton[index];
-    button.style.color = '#FFFFFF'
+    const button = buttonElementList[index];
+    button.style.color = color
 }
 
 /**
