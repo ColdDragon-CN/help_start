@@ -102,19 +102,20 @@
             const player2 = document.getElementById('player2').value;
             const player3 = document.getElementById('player3').value;
 
-            const this_chest = map === 'de' ? de_chest : map === 'bb' ? bb_chest : 'rc';
+            const this_chest = map === 0 ? de_chest : map === 1 ? bb_chest : 'rc';
 
             const data = {
                 map: map,
-                difficulty: theDifficulty,
+                difficulty: difficulty,
                 players: [player1, player2, player3],
                 chest: this_chest,
             }
 
-            sendHelpStart(data, function (result) {
-                send.style.removeProperty('color');
-                alert(result)
-            })
+            // sendHelpStart(data, function (result) {
+            //     send.style.removeProperty('color');
+            //     alert(result)
+            // })
+            console.log(data)
 
         }
         // #### ↑ #### 请求发送帮开 #### ↑ #### 
@@ -125,11 +126,11 @@
         const bot2Element = document.getElementById('bot2');
         const bot3Element = document.getElementById('bot3');
         const infoElement = document.getElementById('info');
-        const botElementList = [bot1Element,bot2Element,bot3Element];
-        spawnInfo(botElementList,infoElement);
+        const botElementList = [bot1Element, bot2Element, bot3Element];
+        spawnInfo(botElementList, infoElement);
 
         const update = document.getElementById('update');
-        update.onclick = () => { spawnInfo(botElementList,infoElement) }
+        update.onclick = () => { spawnInfo(botElementList, infoElement) }
         // #### ↑ #### 请求更新内容 #### ↑ #### 
 
         // #### ↓ #### 穷途箱子选择按钮组 #### ↓ #### 
@@ -191,10 +192,7 @@
         // #### ↑ #### 坏血箱子选择按钮组 #### ↑ #### 
 
         // #### ↓ #### 地图选择按钮组 #### ↓ #### 
-        let map = 'aa';
-        let theDifficulty = 0;
-
-        const difficulty = document.getElementById('difficulty');
+        let map = 2;
 
         const DeadEnd = document.getElementById('DeadEnd');
         const BadBlood = document.getElementById('BadBlood');
@@ -203,22 +201,23 @@
         AlienArcadium.style.backgroundColor = '#00FFFF80';
 
         const mapButtonList = [DeadEnd, BadBlood, AlienArcadium];
-        const mapNameList = ['de', 'bb', 'aa'];
 
-        DeadEnd.addEventListener('mouseover', () => { onMouseover('map', 0) });
-        BadBlood.addEventListener('mouseover', () => { onMouseover('map', 1) });
-        AlienArcadium.addEventListener('mouseover', () => { onMouseover('map', 2) });
+        DeadEnd.addEventListener('mouseover', () => { requireMouseover(mapButtonList, map, 0) });
+        BadBlood.addEventListener('mouseover', () => { requireMouseover(mapButtonList, map, 1) });
+        AlienArcadium.addEventListener('mouseover', () => { requireMouseover(mapButtonList, map, 2) });
 
-        DeadEnd.addEventListener('mouseout', () => { onMouseout('map', 0) })
-        BadBlood.addEventListener('mouseout', () => { onMouseout('map', 1) })
-        AlienArcadium.addEventListener('mouseout', () => { onMouseout('map', 2) })
+        DeadEnd.addEventListener('mouseout', () => { requireMouseout(0, mapButtonList) })
+        BadBlood.addEventListener('mouseout', () => { requireMouseout(1, mapButtonList) })
+        AlienArcadium.addEventListener('mouseout', () => { requireMouseout(2, mapButtonList) })
 
-        DeadEnd.onclick = () => { changeMap('de', 0) };
-        BadBlood.onclick = () => { changeMap('bb', 1) };
-        AlienArcadium.onclick = () => { changeMap('aa', 2) };
+        DeadEnd.onclick = () => { changeMap(0) };
+        BadBlood.onclick = () => { changeMap(1) };
+        AlienArcadium.onclick = () => { changeMap(2) };
         // #### ↑ #### 地图选择按钮组 #### ↑ #### 
 
         // #### ↓ #### 难度选择按钮组 #### ↓ #### 
+        let difficulty = 0;
+
         const normal = document.getElementById('normal');
         const hard = document.getElementById('hard');
         const rip = document.getElementById('rip');
@@ -232,13 +231,13 @@
         hard.onclick = () => { changeDifficulty(1) };
         rip.onclick = () => { changeDifficulty(2) };
 
-        normal.addEventListener('mouseover', () => { onMouseover('difficulty', 0) })
-        hard.addEventListener('mouseover', () => { onMouseover('difficulty', 1) })
-        rip.addEventListener('mouseover', () => { onMouseover('difficulty', 2) })
+        normal.addEventListener('mouseover', () => { requireMouseover(difficultyButtonList, difficulty, 0) })
+        hard.addEventListener('mouseover', () => { requireMouseover(difficultyButtonList, difficulty, 1) })
+        rip.addEventListener('mouseover', () => { requireMouseover(difficultyButtonList, difficulty, 2) })
 
-        normal.addEventListener('mouseout', () => { onMouseout('difficulty', 0) })
-        hard.addEventListener('mouseout', () => { onMouseout('difficulty', 1) })
-        rip.addEventListener('mouseout', () => { onMouseout('difficulty', 2) })
+        normal.addEventListener('mouseout', () => { requireMouseout(0, difficultyButtonList) })
+        hard.addEventListener('mouseout', () => { requireMouseout(1, difficultyButtonList) })
+        rip.addEventListener('mouseout', () => { requireMouseout(2, difficultyButtonList) })
         // #### ↑ #### 难度选择按钮组 #### ↑ #### 
 
     </script>
