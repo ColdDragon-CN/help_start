@@ -88,7 +88,7 @@
 
             <!-- bot的使用情况 -->
             <div class="subTitle" id="info"></div>
-        </div> <!--bot的状态-->>
+        </div> <!--bot的状态-->
     </div> <!--Full-->
     <script>
 
@@ -148,19 +148,19 @@
             [officeElement, hotelElement, apartmentsElement, powerStationElement, galleryElement];
         const chestDeadEndList = ['office', 'hotel', 'apartments', 'powerStation', 'gallery'];
 
-        for (let i = 0; i < chestElementDeadEnd.length; i++) {
-            const button = chestElementDeadEnd[i];
+        for (let index = 0; index < chestElementDeadEnd.length; index++) {
+            const button = chestElementDeadEnd[index];
 
             button.onclick = () => {
-                chestDeadEnd = getChest(chestDeadEnd, chestDeadEndList, chestElementDeadEnd, i);
+                chestDeadEnd = getChest(chestDeadEnd, chestDeadEndList, chestElementDeadEnd, index);
             };
 
             button.addEventListener('mouseover', () => {
-                chestMouse(chestElementDeadEnd, chestDeadEnd, chestDeadEndList, i, green)
+                chestMouse(chestElementDeadEnd, chestDeadEnd, chestDeadEndList, index, green)
             })
 
             button.addEventListener('mouseout', () => {
-                chestMouse(chestElementDeadEnd, chestDeadEnd, chestDeadEndList, i, white)
+                chestMouse(chestElementDeadEnd, chestDeadEnd, chestDeadEndList, index, white)
             })
         }
         // #### ↑ #### 穷途箱子选择按钮组 #### ↑ #### 
