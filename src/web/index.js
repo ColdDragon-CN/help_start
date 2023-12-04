@@ -65,12 +65,12 @@ function changeChestFB(string, index) {
 }
 
 /**
- * 
- * @param {Array<HTMLElement>} buttonElementList 
- * @param {string} choose 
- * @param {Array<string>} chooseList 
- * @param {integer} index 
- * @param {string} mode 
+ * @function chestMouse 箱子鼠标互动
+ * @param {Array<HTMLElement>} buttonElementList 按钮元素集合
+ * @param {string} choose 选择
+ * @param {Array<string>} chooseList 可供的选择
+ * @param {integer} index 索引
+ * @param {string} color 颜色
  * @returns {void}
  */
 function chestMouse(buttonElementList, choose, chooseList, index, color) {

@@ -135,6 +135,7 @@
 
         const green = '#00FF00';
         const white = '#FFFFFF';
+        const light_cyan = '#00FFFF7f'
         // #### ↓ #### 穷途箱子选择按钮组 #### ↓ #### 
         let de_chest = null;
 
@@ -164,11 +165,18 @@
         const bbChestButton = [mansion, library, dungeon, balcony, crypts];
         const bbChest = ['mansion', 'library', 'dungeon', 'balcony', 'crypts'];
 
-        for (let i = 0; i < bbChestButton.length; i++) {
-            const button = bbChestButton[i];
-            button.onclick = () => { changeChestFB(bbChest[i], i) };
-            button.addEventListener('mouseover', () => { chestMouse(bbChestButton, bb_chest, bbChest, i, green) })
-            button.addEventListener('mouseout', () => { chestMouse(bbChestButton, bb_chest, bbChest, i, white) })
+        for (let index = 0; index < bbChestButton.length; index++) {
+            const button = bbChestButton[index];
+
+            button.onclick = () => { changeChestFB(bbChest[index], index) };
+
+            button.addEventListener('mouseover', () => {
+                chestMouse(bbChestButton, bb_chest, bbChest, index, green)
+            })
+
+            button.addEventListener('mouseout', () => {
+                chestMouse(bbChestButton, bb_chest, bbChest, index, white)
+            })
         }
         // #### ↑ #### 坏血箱子选择按钮组 #### ↑ #### 
 
@@ -179,7 +187,7 @@
         const BadBlood = document.getElementById('BadBlood');
         const AlienArcadium = document.getElementById('AlienArcadium');
 
-        AlienArcadium.style.backgroundColor = '#00FFFF80';
+        AlienArcadium.style.backgroundColor = light_blue;
 
         const mapButtonList = [DeadEnd, BadBlood, AlienArcadium];
 
@@ -203,7 +211,7 @@
         const hard = document.getElementById('hard');
         const rip = document.getElementById('rip');
 
-        normal.style.backgroundColor = '#00FFFF80';
+        normal.style.backgroundColor = light_blue;
 
         const difficultyList = ['normal', 'hard', 'rip'];
         const difficultyButtonList = [normal, hard, rip];
