@@ -213,9 +213,9 @@
         BadBlood.addEventListener('mouseout', () => { requireMouseout(1, mapButtonList) })
         AlienArcadium.addEventListener('mouseout', () => { requireMouseout(2, mapButtonList) })
 
-        DeadEnd.onclick = () => { getDM(mapButtonList, 0) };
-        BadBlood.onclick = () => { getDM(mapButtonList, 1) };
-        AlienArcadium.onclick = () => { getDM(mapButtonList, 2) };
+        DeadEnd.onclick = () => { map = getDM(mapButtonList, 0) };
+        BadBlood.onclick = () => { map = getDM(mapButtonList, 1) };
+        AlienArcadium.onclick = () => { map = getDM(mapButtonList, 2) };
         // #### ↑ #### 地图选择按钮组 #### ↑ #### 
 
         // #### ↓ #### 难度选择按钮组 #### ↓ #### 
@@ -230,9 +230,9 @@
         const difficultyList = ['normal', 'hard', 'rip'];
         const difficultyButtonList = [normal, hard, rip];
 
-        normal.onclick = () => { getDM(difficultyButtonList, 0) };
-        hard.onclick = () => { getDM(difficultyButtonList, 1) };
-        rip.onclick = () => { getDM(difficultyButtonList, 2) };
+        normal.onclick = () => { difficulty = getDM(difficultyButtonList, 0) };
+        hard.onclick = () => { difficulty = getDM(difficultyButtonList, 1) };
+        rip.onclick = () => { difficulty = getDM(difficultyButtonList, 2) };
 
         normal.addEventListener('mouseover', () => { requireMouseover(difficultyButtonList, difficulty, 0) })
         hard.addEventListener('mouseover', () => { requireMouseover(difficultyButtonList, difficulty, 1) })
