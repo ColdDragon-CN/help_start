@@ -1,3 +1,12 @@
+const scriptAuthor = ['ColdDragon', '3dragons'];
+
+const color = {
+    transparent: '#00000000',
+    light_cyan: '#00FFFF7f',
+    green: '#00FF00',
+    white: '#FFFFFF',
+}
+
 function changeMap(index) {
     for (var i = 0; i < mapButtonList.length; i++) {
         const button = mapButtonList[i];
@@ -24,44 +33,31 @@ function changeDifficulty(index) {
     difficulty = index;
 }
 
-function changeChestFD(string, index) {
-    if (deChest.indexOf(de_chest) === index) {
-        de_chest = null;
-        const button = deChestButton[index];
-        button.style.backgroundColor = '#00FFFF00';
-        button.style.color = '#00FF00'
-        return;
+/**
+ * 
+ * @param {string} chest 
+ * @param {Array<string>} chestList 
+ * @param {Array<HTMLElement>} buttonElementList 
+ * @param {integer} index 
+ * @returns 
+ */
+function getChest(chest, chestList, buttonElementList, index) {
+    if (chestList.indexOf(chest) === index) {
+        const button = buttonElementList[index];
+        button.style.backgroundColor = color.transparent;
+        button.style.color = color.green;
+        return null;
     }
-    for (var i = 0; i < deChestButton.length; i++) {
-        const button = deChestButton[i];
+    for (var i = 0; i < buttonElementList.length; i++) {
+        const button = buttonElementList[i];
         if (i === index) {
-            button.style.backgroundColor = '#00FFFF80';
-            button.style.color = '#FFFFFF'
+            button.style.backgroundColor = color.light_cyan;
+            button.style.color = color.white;
             continue;
         }
-        button.style.backgroundColor = '#00FFFF00';
+        button.style.backgroundColor = color.transparent;
     }
-    de_chest = string;
-}
-
-function changeChestFB(string, index) {
-    if (bbChest.indexOf(bb_chest) === index) {
-        bb_chest = null;
-        const button = bbChestButton[index];
-        button.style.backgroundColor = '#00FFFF00';
-        button.style.color = '#00FF00'
-        return;
-    }
-    for (var i = 0; i < bbChestButton.length; i++) {
-        const button = bbChestButton[i];
-        if (i === index) {
-            button.style.backgroundColor = '#00FFFF80';
-            button.style.color = '#FFFFFF'
-            continue;
-        }
-        button.style.backgroundColor = '#00FFFF00';
-    }
-    bb_chest = string;
+    return chestList[index];
 }
 
 /**

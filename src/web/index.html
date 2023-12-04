@@ -102,7 +102,7 @@
             const player2 = document.getElementById('player2').value;
             const player3 = document.getElementById('player3').value;
 
-            const this_chest = map === 0 ? de_chest : map === 1 ? bb_chest : 'rc';
+            const this_chest = map === 0 ? chestDeadEnd : map === 1 ? chestBadBlood : 'rc';
 
             const data = {
                 map: map,
@@ -137,45 +137,58 @@
         const white = '#FFFFFF';
         const light_cyan = '#00FFFF7f'
         // #### ↓ #### 穷途箱子选择按钮组 #### ↓ #### 
-        let de_chest = null;
+        let chestDeadEnd = null;
 
-        const office = document.getElementById('office');
-        const hotel = document.getElementById('hotel');
-        const apartments = document.getElementById('apartments');
-        const powerStation = document.getElementById('power_station');
-        const gallery = document.getElementById('gallery');
-        const deChestButton = [office, hotel, apartments, powerStation, gallery];
-        const deChest = ['office', 'hotel', 'apartments', 'powerStation', 'gallery'];
+        const officeElement = document.getElementById('office');
+        const hotelElement = document.getElementById('hotel');
+        const apartmentsElement = document.getElementById('apartments');
+        const powerStationElement = document.getElementById('power_station');
+        const galleryElement = document.getElementById('gallery');
+        const chestElementDeadEnd =
+            [officeElement, hotelElement, apartmentsElement, powerStationElement, galleryElement];
+        const chestDeadEndList = ['office', 'hotel', 'apartments', 'powerStation', 'gallery'];
 
-        for (let i = 0; i < deChestButton.length; i++) {
-            const button = deChestButton[i];
-            button.onclick = () => { changeChestFD(deChest[i], i) };
-            button.addEventListener('mouseover', () => { chestMouse(deChestButton, de_chest, deChest, i, green) })
-            button.addEventListener('mouseout', () => { chestMouse(deChestButton, de_chest, deChest, i, white) })
+        for (let i = 0; i < chestElementDeadEnd.length; i++) {
+            const button = chestElementDeadEnd[i];
+
+            button.onclick = () => {
+                chestDeadEnd = getChest(chestDeadEnd, chestDeadEndList, chestElementDeadEnd, i);
+            };
+
+            button.addEventListener('mouseover', () => {
+                chestMouse(chestElementDeadEnd, chestDeadEnd, chestDeadEndList, i, green)
+            })
+
+            button.addEventListener('mouseout', () => {
+                chestMouse(chestElementDeadEnd, chestDeadEnd, chestDeadEndList, i, white)
+            })
         }
         // #### ↑ #### 穷途箱子选择按钮组 #### ↑ #### 
 
         // #### ↓ #### 坏血箱子选择按钮组 #### ↓ #### 
-        let bb_chest = null;
-        const mansion = document.getElementById('mansion');
-        const library = document.getElementById('library');
-        const dungeon = document.getElementById('dungeon');
-        const balcony = document.getElementById('balcony');
-        const crypts = document.getElementById('crypts');
-        const bbChestButton = [mansion, library, dungeon, balcony, crypts];
-        const bbChest = ['mansion', 'library', 'dungeon', 'balcony', 'crypts'];
+        let chestBadBlood = null;
+        const mansionElement = document.getElementById('mansion');
+        const libraryElement = document.getElementById('library');
+        const dungeonElement = document.getElementById('dungeon');
+        const balconyElement = document.getElementById('balcony');
+        const cryptsElement = document.getElementById('crypts');
+        const chestElementBlood =
+            [mansionElement, libraryElement, dungeonElement, balconyElement, cryptsElement];
+        const chestBadBloodList = ['mansion', 'library', 'dungeon', 'balcony', 'crypts'];
 
-        for (let index = 0; index < bbChestButton.length; index++) {
-            const button = bbChestButton[index];
+        for (let index = 0; index < chestElementBlood.length; index++) {
+            const button = chestElementBlood[index];
 
-            button.onclick = () => { changeChestFB(bbChest[index], index) };
+            button.onclick = () => {
+                chestBadBlood = getChest(chestBadBlood, chestDeadEndList, chestElementBlood, index)
+            };
 
             button.addEventListener('mouseover', () => {
-                chestMouse(bbChestButton, bb_chest, bbChest, index, green)
+                chestMouse(chestElementBlood, chestBadBlood, chestDeadEndList, index, green)
             })
 
             button.addEventListener('mouseout', () => {
-                chestMouse(bbChestButton, bb_chest, bbChest, index, white)
+                chestMouse(chestElementBlood, chestBadBlood, chestDeadEndList, index, white)
             })
         }
         // #### ↑ #### 坏血箱子选择按钮组 #### ↑ #### 
@@ -187,7 +200,7 @@
         const BadBlood = document.getElementById('BadBlood');
         const AlienArcadium = document.getElementById('AlienArcadium');
 
-        AlienArcadium.style.backgroundColor = light_blue;
+        AlienArcadium.style.backgroundColor = light_cyan;
 
         const mapButtonList = [DeadEnd, BadBlood, AlienArcadium];
 
@@ -211,7 +224,7 @@
         const hard = document.getElementById('hard');
         const rip = document.getElementById('rip');
 
-        normal.style.backgroundColor = light_blue;
+        normal.style.backgroundColor = light_cyan;
 
         const difficultyList = ['normal', 'hard', 'rip'];
         const difficultyButtonList = [normal, hard, rip];
