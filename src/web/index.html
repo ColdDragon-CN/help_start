@@ -180,15 +180,15 @@
             const button = chestElementBlood[index];
 
             button.onclick = () => {
-                chestBadBlood = getChest(chestBadBlood, chestDeadEndList, chestElementBlood, index)
+                chestBadBlood = getChest(chestBadBlood, chestBadBloodList, chestElementBlood, index)
             };
 
             button.addEventListener('mouseover', () => {
-                chestMouse(chestElementBlood, chestBadBlood, chestDeadEndList, index, green)
+                chestMouse(chestElementBlood, chestBadBlood, chestBadBloodList, index, green)
             })
 
             button.addEventListener('mouseout', () => {
-                chestMouse(chestElementBlood, chestBadBlood, chestDeadEndList, index, white)
+                chestMouse(chestElementBlood, chestBadBlood, chestBadBloodList, index, white)
             })
         }
         // #### ↑ #### 坏血箱子选择按钮组 #### ↑ #### 
@@ -212,9 +212,9 @@
         BadBlood.addEventListener('mouseout', () => { requireMouseout(1, mapButtonList) })
         AlienArcadium.addEventListener('mouseout', () => { requireMouseout(2, mapButtonList) })
 
-        DeadEnd.onclick = () => { changeMap(0) };
-        BadBlood.onclick = () => { changeMap(1) };
-        AlienArcadium.onclick = () => { changeMap(2) };
+        DeadEnd.onclick = () => { getDM(mapButtonList, 0) };
+        BadBlood.onclick = () => { getDM(mapButtonList, 1) };
+        AlienArcadium.onclick = () => { getDM(mapButtonList, 2) };
         // #### ↑ #### 地图选择按钮组 #### ↑ #### 
 
         // #### ↓ #### 难度选择按钮组 #### ↓ #### 
@@ -229,9 +229,9 @@
         const difficultyList = ['normal', 'hard', 'rip'];
         const difficultyButtonList = [normal, hard, rip];
 
-        normal.onclick = () => { changeDifficulty(0) };
-        hard.onclick = () => { changeDifficulty(1) };
-        rip.onclick = () => { changeDifficulty(2) };
+        normal.onclick = () => { getDM(difficultyButtonList, 0) };
+        hard.onclick = () => { getDM(difficultyButtonList, 1) };
+        rip.onclick = () => { getDM(difficultyButtonList, 2) };
 
         normal.addEventListener('mouseover', () => { requireMouseover(difficultyButtonList, difficulty, 0) })
         hard.addEventListener('mouseover', () => { requireMouseover(difficultyButtonList, difficulty, 1) })

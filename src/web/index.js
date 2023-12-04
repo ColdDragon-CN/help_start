@@ -7,30 +7,22 @@ const color = {
     white: '#FFFFFF',
 }
 
-function changeMap(index) {
-    for (var i = 0; i < mapButtonList.length; i++) {
-        const button = mapButtonList[i];
+/**
+ * 
+ * @param {Array<HTMLElement>} buttonElementList 
+ * @param {integer} index 
+ */
+function getDM(buttonElementList, index) {
+    for (var i = 0; i < buttonElementList.length; i++) {
+        const button = buttonElementList[i];
         if (i === index) {
-            button.style.backgroundColor = '#00FFFF80';
-            button.style.color = '#FFFFFF'
+            button.style.backgroundColor = color.light_cyan;
+            button.style.color = color.white
             continue;
         }
-        button.style.backgroundColor = '#00FFFF00'
+        button.style.backgroundColor = color.transparent;
     }
-    map = index;
-}
-
-function changeDifficulty(index) {
-    for (var i = 0; i < difficultyButtonList.length; i++) {
-        const button = difficultyButtonList[i];
-        if (i === index) {
-            button.style.backgroundColor = '#00FFFF80';
-            button.style.color = '#FFFFFF'
-            continue;
-        }
-        button.style.backgroundColor = '#00FFFF00'
-    }
-    difficulty = index;
+    return index;
 }
 
 /**
