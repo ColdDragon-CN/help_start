@@ -80,7 +80,7 @@ function requireMouseover(buttonElementList, choose, index) {
         return;
     }
     const button = buttonElementList[index];
-    button.style.color = '#00FF00'
+    button.style.color = color.green
 }
 
 /**
@@ -90,7 +90,7 @@ function requireMouseover(buttonElementList, choose, index) {
  */
 function requireMouseout(index, buttonElementList) {
     const button = buttonElementList[index];
-    button.style.color = '#FFFFFF'
+    button.style.color = color.white
 }
 
 /**@type {string} 这是请求的主url*/

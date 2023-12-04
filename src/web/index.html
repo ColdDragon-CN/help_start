@@ -92,11 +92,15 @@
     </div> <!--Full-->
     <script>
 
+        const green = '#00FF00';
+        const white = '#FFFFFF';
+        const light_cyan = '#00FFFF7f'
+
         // #### ↓ #### 请求发送帮开 #### ↓ #### 
         const send = document.getElementById('send');
         send.onclick = function () {
 
-            send.style.color = '#FFFFFF';
+            send.style.color = white;
 
             const player1 = document.getElementById('player1').value;
             const player2 = document.getElementById('player2').value;
@@ -133,9 +137,6 @@
         update.onclick = () => { spawnInfo(botElementList, infoElement) }
         // #### ↑ #### 请求更新内容 #### ↑ #### 
 
-        const green = '#00FF00';
-        const white = '#FFFFFF';
-        const light_cyan = '#00FFFF7f'
         // #### ↓ #### 穷途箱子选择按钮组 #### ↓ #### 
         let chestDeadEnd = null;
 
