@@ -106,7 +106,7 @@
             const player2 = document.getElementById('player2').value;
             const player3 = document.getElementById('player3').value;
 
-            const this_chest = map === 0 ? chestDeadEnd : map === 1 ? chestBadBlood : 'rc';
+            const this_chest = map === 0 ? chestDeadEnd : map === 1 ? chestBadBlood : null;
 
             const data = {
                 map: map,
@@ -115,10 +115,10 @@
                 chest: this_chest,
             }
 
-            // sendHelpStart(data, function (result) {
+            sendHelpStart(data, function (result) {
                 send.style.removeProperty('color');
-            //     alert(result)
-            // })
+                alert(result)
+            })
             console.log(data)
 
         }
@@ -147,7 +147,7 @@
         const galleryElement = document.getElementById('gallery');
         const chestElementDeadEnd =
             [officeElement, hotelElement, apartmentsElement, powerStationElement, galleryElement];
-        const chestDeadEndList = ['office', 'hotel', 'apartments', 'powerStation', 'gallery'];
+        const chestDeadEndList = ['Office', 'Hotel', 'Apartments', 'Power Station', 'Gallery'];
 
         for (let index = 0; index < chestElementDeadEnd.length; index++) {
             const button = chestElementDeadEnd[index];
@@ -175,7 +175,7 @@
         const cryptsElement = document.getElementById('crypts');
         const chestElementBlood =
             [mansionElement, libraryElement, dungeonElement, balconyElement, cryptsElement];
-        const chestBadBloodList = ['mansion', 'library', 'dungeon', 'balcony', 'crypts'];
+        const chestBadBloodList = ['Mansion', 'Library', 'Dungeon', 'Balcony', 'Crypts'];
 
         for (let index = 0; index < chestElementBlood.length; index++) {
             const button = chestElementBlood[index];

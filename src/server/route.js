@@ -1,7 +1,8 @@
 const express = require('express');
 const route = express.Router();
+const moment = require('moment')
 
-let helpStartLine = [0, 1, 2, 3, 4, 5];
+let helpStartLineInfo = [0, 1, 2, 3, 4, 5];
 
 let bot_info = {
     bot1: { name: 'null', online: false },
@@ -9,13 +10,16 @@ let bot_info = {
     bot3: { name: 'null', online: false },
 }
 
-let onlineBot = []
+let onlineBot = [];
+
+/**@type {Array<Array>} 存储hs命令的数组*/
+let helpStartCommLine = [];
 
 route.get('/getInfo', function (request, response) {
-    response.json({ 'bot': bot_info, 'line': helpStartLine })
+    response.json({ 'bot': bot_info, 'line': helpStartLineInfo })
 })
 
-function middleware_readPlayers(request, response, next) {
+function middleware_helpStart_readPlayers(request, response, next) {
 
     // 先判断下能不能hs
     if (onlineBot.length === 0) {
@@ -79,17 +83,68 @@ function middleware_readPlayers(request, response, next) {
 }
 
 // 使用解析玩家数据的中间件 解析的url为帮开的路由
-route.use('/helpStart', middleware_readPlayers);
+route.use('/helpStart', middleware_helpStart_readPlayers);
 
-// 用于执行帮开的中间件
+function middleware_helpStart_readChest(request,response,next){
+    const body = request.body;
+    const chest = body.chest;
+
+    // 如果箱子为空 则下一个中间件
+    if(chest === null){
+        return next();
+    }
+    const map = body.map;
+    const chestDeadEndList = ['Office', 'Hotel', 'Apartments', 'Power Station', 'Gallery'];
+    const chestBadBloodList = ['Mansion', 'Library', 'Dungeon', 'Balcony', 'Crypts'];
+
+    // 如果地图为de 并且数据没有错误 则下一个中间件
+    if(map === 0 && chestDeadEndList.includes(chest)){
+        return next();
+    }
+
+    // 如果地图为bb 并且数据没有错误 则下一个中间件
+    if(map === 1 && chestBadBloodList.includes(chest)){
+        return next()
+    }
+    
+    // 如果都没检测到正确的数据则chest的数据设为空
+    request.body.chest = null;
+    next();
+}
+
+// 使用解析箱子数据在中间件 解析的url为帮开的路由
+route.use('/helpStart',middleware_helpStart_readChest);
+
+// 请求发送帮开请求的api
 route.post('/helpStart', function (request, response) {
     const body = request.body;
+
     const players = body.players;
     const firstPlayer = players[0];
     const message = `${players.length} by ${firstPlayer}`
-    helpStartLine.push(message)
-    console.log(players);
-    response.send(`please wait ${onlineBot[0]} invite ${players.length === 1 ? 'you' : 'your are  '}`)
+    helpStartLineInfo.push(message)
+
+    const map = body.map;
+    const difficulty = body.difficulty;
+    const chest = body.chest;
+
+    // const comm = `${players}-${map}-${difficulty}-${chest}`;
+    helpStartCommLine.push([players,map,difficulty,chest]);
+
+    log('helpStart', [players, map, difficulty, chest])
+
+    response.send(`please wait ${bot_info.bot1.name} invite ${players.length === 1 ? 'you' : 'your are  '}`)
+})
+
+// 请求获取需要帮开数据的api
+route.get('/helpStartData', function (request, response) {
+    response.send(helpStartCommLine)
+})
+
+// hs完成请求删除帮开数据的api
+route.get('/deleteHelpStartData',function(request,response){
+    helpStartCommLine.shift();
+    response.send('OK')
 })
 
 module.exports = route;
@@ -104,6 +159,11 @@ function getPlayer(players) {
         return players.split(' ');
     }
     return players
+}
+
+function getTime() {
+    const time = moment().format('HH:mm:ss');
+    return `[${time}]`
 }
 
 /**
@@ -123,4 +183,21 @@ function isRightPlayer(player) {
         }
     }
     return true;
+}
+
+
+function log(key, values) {
+    if (key === 'helpStart') {
+        const maps = ['Dead End', 'Bad Blood', 'Alien Arcadium'];
+        const difficultys = ['Normal', 'Hard', 'Rip'];
+
+        const players = values[0]
+        const map = values[1];
+        const difficulty = map === 2 ? difficultys[0] : difficultys[values[2]];
+        const chest = values[3] ? `|${values[3]}` : '';
+
+        const playerMessage = `${players} helpStart `;
+        const gameMessage = `/${maps[map]}|${difficulty}${chest}/`;
+        return console.log(`${getTime()} [HelpStart/INFO] ${playerMessage}${gameMessage}`);
+    }
 }
