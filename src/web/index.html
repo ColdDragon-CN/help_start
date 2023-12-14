@@ -205,17 +205,12 @@
 
         const mapButtonList = [DeadEnd, BadBlood, AlienArcadium];
 
-        DeadEnd.addEventListener('mouseover', () => { requireMouseover(mapButtonList, map, 0) });
-        BadBlood.addEventListener('mouseover', () => { requireMouseover(mapButtonList, map, 1) });
-        AlienArcadium.addEventListener('mouseover', () => { requireMouseover(mapButtonList, map, 2) });
-
-        DeadEnd.addEventListener('mouseout', () => { requireMouseout(0, mapButtonList) })
-        BadBlood.addEventListener('mouseout', () => { requireMouseout(1, mapButtonList) })
-        AlienArcadium.addEventListener('mouseout', () => { requireMouseout(2, mapButtonList) })
-
-        DeadEnd.onclick = () => { map = getDM(mapButtonList, 0) };
-        BadBlood.onclick = () => { map = getDM(mapButtonList, 1) };
-        AlienArcadium.onclick = () => { map = getDM(mapButtonList, 2) };
+        for (let index = 0; index < mapButtonList.length; index++) {
+            const button = mapButtonList[index];
+            button.addEventListener('mouseover', () => { requireMouseover(mapButtonList, map, index) });
+            button.addEventListener('mouseout', () => { requireMouseout(index, mapButtonList) });
+            button.onclick = () => { map = getDM(mapButtonList, index) };
+        }
         // #### ↑ #### 地图选择按钮组 #### ↑ #### 
 
         // #### ↓ #### 难度选择按钮组 #### ↓ #### 
@@ -230,17 +225,12 @@
         const difficultyList = ['normal', 'hard', 'rip'];
         const difficultyButtonList = [normal, hard, rip];
 
-        normal.onclick = () => { difficulty = getDM(difficultyButtonList, 0) };
-        hard.onclick = () => { difficulty = getDM(difficultyButtonList, 1) };
-        rip.onclick = () => { difficulty = getDM(difficultyButtonList, 2) };
-
-        normal.addEventListener('mouseover', () => { requireMouseover(difficultyButtonList, difficulty, 0) })
-        hard.addEventListener('mouseover', () => { requireMouseover(difficultyButtonList, difficulty, 1) })
-        rip.addEventListener('mouseover', () => { requireMouseover(difficultyButtonList, difficulty, 2) })
-
-        normal.addEventListener('mouseout', () => { requireMouseout(0, difficultyButtonList) })
-        hard.addEventListener('mouseout', () => { requireMouseout(1, difficultyButtonList) })
-        rip.addEventListener('mouseout', () => { requireMouseout(2, difficultyButtonList) })
+        for (let index = 0; index < difficultyButtonList.length; index++) {
+            const button = difficultyButtonList[index];
+            button.addEventListener('mouseover', () => { requireMouseover(difficultyButtonList, difficulty, index) });
+            button.addEventListener('mouseout', () => { requireMouseout(index, difficultyButtonList) });
+            button.onclick = () => { difficulty = getDM(difficultyButtonList, index) };
+        }
         // #### ↑ #### 难度选择按钮组 #### ↑ #### 
 
     </script>
