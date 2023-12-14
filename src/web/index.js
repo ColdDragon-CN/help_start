@@ -201,6 +201,7 @@ function readPlayers(players) {
         for (var i = 0; i < player.length; i++) {
             var simplePlayer = player[i];
             if (isRightPlayer(simplePlayer)) {
+                console.log(simplePlayer);
                 playerList.push(simplePlayer);
             }
         }
@@ -217,7 +218,7 @@ function readPlayers(players) {
  * @returns 
  */
 function isRightPlayer(player) {
-    if (player.length > 16) {
+    if (player.length > 16 || !player) {
         return false;
     }
     for (var i = 0; i < player.length; i++) {
