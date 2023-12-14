@@ -16,7 +16,7 @@ const route = require(path.join(__dirname, './route'))
 server.use(route)
 
 server.listen(301, function () {
-    log(`${getTime()}服务器启动成功`);
+    log(`${getTime()} [Server Core/INFO]服务器启动成功`);
 })
 
 /**

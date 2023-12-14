@@ -2,15 +2,15 @@ const express = require('express');
 const route = express.Router();
 const moment = require('moment')
 
-let helpStartLineInfo = [0, 1, 2, 3, 4, 5];
+let helpStartLineInfo = [];
 
 let bot_info = {
-    bot1: { name: 'null', online: false },
+    bot1: { name: '4Whrdo1', online: true },
     bot2: { name: 'null', online: false },
     bot3: { name: 'null', online: false },
 }
 
-let onlineBot = [];
+let onlineBot = ['4Whrdo1']
 
 /**@type {Array<Array>} 存储hs命令的数组*/
 let helpStartCommLine = [];
@@ -85,12 +85,12 @@ function middleware_helpStart_readPlayers(request, response, next) {
 // 使用解析玩家数据的中间件 解析的url为帮开的路由
 route.use('/helpStart', middleware_helpStart_readPlayers);
 
-function middleware_helpStart_readChest(request,response,next){
+function middleware_helpStart_readChest(request, response, next) {
     const body = request.body;
     const chest = body.chest;
 
     // 如果箱子为空 则下一个中间件
-    if(chest === null){
+    if (chest === null) {
         return next();
     }
     const map = body.map;
@@ -98,22 +98,22 @@ function middleware_helpStart_readChest(request,response,next){
     const chestBadBloodList = ['Mansion', 'Library', 'Dungeon', 'Balcony', 'Crypts'];
 
     // 如果地图为de 并且数据没有错误 则下一个中间件
-    if(map === 0 && chestDeadEndList.includes(chest)){
+    if (map === 0 && chestDeadEndList.includes(chest)) {
         return next();
     }
 
     // 如果地图为bb 并且数据没有错误 则下一个中间件
-    if(map === 1 && chestBadBloodList.includes(chest)){
+    if (map === 1 && chestBadBloodList.includes(chest)) {
         return next()
     }
-    
+
     // 如果都没检测到正确的数据则chest的数据设为空
     request.body.chest = null;
     next();
 }
 
 // 使用解析箱子数据在中间件 解析的url为帮开的路由
-route.use('/helpStart',middleware_helpStart_readChest);
+route.use('/helpStart', middleware_helpStart_readChest);
 
 // 请求发送帮开请求的api
 route.post('/helpStart', function (request, response) {
@@ -121,15 +121,16 @@ route.post('/helpStart', function (request, response) {
 
     const players = body.players;
     const firstPlayer = players[0];
-    const message = `${players.length} by ${firstPlayer}`
+    const message = `${players.length} player by ${firstPlayer}`
     helpStartLineInfo.push(message)
 
+    const playerC = players.map(function (x) { return x.toLowerCase() })
     const map = body.map;
     const difficulty = body.difficulty;
     const chest = body.chest;
 
     // const comm = `${players}-${map}-${difficulty}-${chest}`;
-    helpStartCommLine.push([players,map,difficulty,chest]);
+    helpStartCommLine.push([playerC, map, difficulty, chest]);
 
     log('helpStart', [players, map, difficulty, chest])
 
@@ -142,8 +143,10 @@ route.get('/helpStartData', function (request, response) {
 })
 
 // hs完成请求删除帮开数据的api
-route.get('/deleteHelpStartData',function(request,response){
+route.get('/deleteHelpStartData', function (request, response) {
+    log('delete 1 help start data success')
     helpStartCommLine.shift();
+    helpStartLineInfo.shift();
     response.send('OK')
 })
 
