@@ -190,7 +190,7 @@ function readPlayers(players) {
         // 获取单个输入框的玩家
         var input_player = players[index];
 
-        if(!input_player){
+        if (!input_player) {
             continue;
         }
 
