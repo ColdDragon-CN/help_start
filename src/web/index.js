@@ -175,3 +175,55 @@ function spawnInfo(botElementList, infoElement) {
         infoElement.innerHTML = textList
     })
 }
+
+/**
+ * @function readPlayers 解析玩家数据
+ * @param {Array<string>} players 玩家
+ * @returns {Array<string>} 解析完后的数据
+ */
+function readPlayers(players) {
+    var playerList = [];
+
+    // 遍历数组
+    for (var index = 0; index < players.length; index++) {
+
+        // 获取单个输入框的玩家
+        var input_player = players[index];
+
+        if(!input_player){
+            continue;
+        }
+
+        // 把数组中的字符串再分割成数组
+        var player = input_player.split(' ');
+
+        // 遍历分割后的字符串
+        for (var i = 0; i < player.length; i++) {
+            var simplePlayer = player[i];
+            if (isRightPlayer(simplePlayer)) {
+                playerList.push(simplePlayer);
+            }
+        }
+    }
+    if (playerList.length > 3) {
+        return playerList.slice(0, 3);
+    }
+    return playerList;
+}
+
+/**
+ * @function isRightPlayer 判断这个玩家的格式是否正确
+ * @param {string} player 
+ * @returns 
+ */
+function isRightPlayer(player) {
+    if (player.length > 16) {
+        return false;
+    }
+    for (var i = 0; i < player.length; i++) {
+        if (!/[a-z0-9_]/i.test(player[i])) {
+            return false;
+        }
+    }
+    return true;
+}

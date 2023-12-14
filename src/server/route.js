@@ -19,46 +19,44 @@ route.get('/getInfo', function (request, response) {
     response.json({ 'bot': bot_info, 'line': helpStartLineInfo })
 })
 
-function middleware_helpStart_readPlayers(request, response, next) {
+// 简单的防注入
+function middleware_helpStart_readPlayers1(request, response, next) {
+    /**@type {Array<string>} 获取请求的玩家数据*/
+    const players = request.body.players;
+    let tempList = [];
+    for (let index = 0; index < players.length; index++) {
+        const player = players[index];
+        if (typeof player === 'string') {
+            tempList.push(player);
+        }
+    }
+    request.body.players = tempList;
+    next();
+}
+
+function middleware_helpStart_readPlayers2(request, response, next) {
 
     // 先判断下能不能hs
     if (onlineBot.length === 0) {
-        return response.send('There are not more bot can help start')
+        return response.send('#Error There are not more bot can help start')
     }
 
     // 获取请求数据
     const body = request.body;
 
-    // 获取请求的玩家数据
+    /**@type {Array<string>} 获取请求的玩家数据*/
     const players = body.players;
+
+    if (!Array.isArray(players)) {
+        response.send('#Error players input error')
+    }
 
     /**@type {Array<string>} 储存解析后的玩家数据*/
     let playerList = [];
-
-    for (var index = 0; index < players.length; index++) {
-
-        // 获取单独的玩家
-        const player = players[index];
-
-        // 如果这个玩家格式不对就跳过
-        if (!player || !isRightPlayer(player)) {
-            continue;
-        }
-
-        // 获取解析后的玩家数据
-        const thePlayer = getPlayer(player);
-
-        // 如果解析后还是原数据则直接存储并跳出循环
-        if (player === thePlayer) {
-            playerList.push(thePlayer);
-            continue;
-        }
-
-        // 否则就把解析后的数据分别存储进playerList中
-        for (var count = 0; count < thePlayer.length; count++) {
-            const simplePlayer = thePlayer[count];
-            if (!simplePlayer || !isRightPlayer(simplePlayer))
-                playerList.push(simplePlayer);
+    for (let index = 0; index < players.length; index++) {
+        const player = players[index]
+        if (isRightPlayer(player)) {
+            playerList.push(player);
         }
     }
 
@@ -83,7 +81,8 @@ function middleware_helpStart_readPlayers(request, response, next) {
 }
 
 // 使用解析玩家数据的中间件 解析的url为帮开的路由
-route.use('/helpStart', middleware_helpStart_readPlayers);
+route.use('/helpStart', middleware_helpStart_readPlayers1);
+route.use('/helpStart', middleware_helpStart_readPlayers2);
 
 function middleware_helpStart_readChest(request, response, next) {
     const body = request.body;
@@ -132,7 +131,7 @@ route.post('/helpStart', function (request, response) {
     // const comm = `${players}-${map}-${difficulty}-${chest}`;
     helpStartCommLine.push([playerC, map, difficulty, chest]);
 
-    log('helpStart', [players, map, difficulty, chest])
+    log_helpStartRoute('helpStart', [players, map, difficulty, chest])
 
     response.send(`please wait ${bot_info.bot1.name} invite ${players.length === 1 ? 'you' : 'your are  '}`)
 })
@@ -144,25 +143,13 @@ route.get('/helpStartData', function (request, response) {
 
 // hs完成请求删除帮开数据的api
 route.get('/deleteHelpStartData', function (request, response) {
-    log('delete 1 help start data success')
+    log_helpStartInfo('delete 1 help start data success')
     helpStartCommLine.shift();
     helpStartLineInfo.shift();
     response.send('OK')
 })
 
 module.exports = route;
-
-/**
- * @function getPlayer 用于解析玩家的字符串
- * @param {string} players 玩家
- * @returns {string|Array<string>} 解析后的玩家
- */
-function getPlayer(players) {
-    if (/\s/.test(players)) {
-        return players.split(' ');
-    }
-    return players
-}
 
 function getTime() {
     const time = moment().format('HH:mm:ss');
@@ -171,15 +158,15 @@ function getTime() {
 
 /**
  * @function isRightPlayer 用于判断这个玩家名称的格式是否正确
- * @param {string|Array<string>} player 玩家
+ * @param {string} player 玩家
  * @returns {boolean} 这个玩家名称的格式是否正确
  */
 function isRightPlayer(player) {
-    if (player instanceof Array) {
-        return true;
+    if (typeof player !== 'string') {
+        return false;
     }
     const reg = /[0-9a-z_]/i;
-    for (var i = 0; i < player.length; i++) {
+    for (let i = 0; i < player.length; i++) {
         const char = player[i];
         if (!reg.test(char)) {
             return false
@@ -188,8 +175,11 @@ function isRightPlayer(player) {
     return true;
 }
 
+function log_helpStartInfo(values) {
+    return console.log(`${getTime()} [HelpStart/INFO] ${values}`);
+}
 
-function log(key, values) {
+function log_helpStartRoute(key, values) {
     if (key === 'helpStart') {
         const maps = ['Dead End', 'Bad Blood', 'Alien Arcadium'];
         const difficultys = ['Normal', 'Hard', 'Rip'];
