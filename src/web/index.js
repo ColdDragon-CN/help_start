@@ -94,7 +94,7 @@ function requireMouseout(index, buttonElementList) {
 }
 
 /**@type {string} 这是请求的主url*/
-const url = 'http://127.0.0.1:301/'
+const url = 'http://iwmc.tpddns.cn:53000/'
 /**
  * @function sendHelpStart 发送帮开请求
  * @param {object} data 数据
